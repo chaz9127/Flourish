@@ -1,0 +1,9 @@
+/* Overlay styles - using CSS reset to prevent page styles from interfering */
+.flourish-overlay * {
+  all: initial;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.flourish-overlay {
+  all: initial;
+}
