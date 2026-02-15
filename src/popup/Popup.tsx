@@ -79,6 +79,10 @@ const Popup: React.FC = () => {
     await sendMessage(MessageType.TOGGLE_OVERLAY, { enabled });
   };
 
+  const handleResetScore = async () => {
+    await sendMessage(MessageType.RESET_SCORE);
+  };
+
   if (loading) {
     return (
       <div className="popup-container">
@@ -97,6 +101,28 @@ const Popup: React.FC = () => {
       <ScoreDisplay score={score} />
 
       <OverlayToggle enabled={overlayEnabled} onToggle={handleToggleOverlay} />
+
+      <div style={{ padding: '16px', borderBottom: '1px solid #e5e7eb' }}>
+        <button
+          onClick={handleResetScore}
+          style={{
+            width: '100%',
+            padding: '10px',
+            backgroundColor: '#ef4444',
+            color: 'white',
+            border: 'none',
+            borderRadius: '6px',
+            fontSize: '14px',
+            fontWeight: '600',
+            cursor: 'pointer',
+            transition: 'background-color 0.2s',
+          }}
+          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#dc2626')}
+          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#ef4444')}
+        >
+          Reset Score
+        </button>
+      </div>
 
       <WebsiteManager
         productiveSites={productiveSites}

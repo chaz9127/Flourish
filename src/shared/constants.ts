@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
   PRODUCTIVE_SITES: 'productiveSites',
   UNPRODUCTIVE_SITES: 'unproductiveSites',
   OVERLAY_ENABLED: 'overlayEnabled',
+  PLANT_EMOJIS: 'plantEmojis',
 } as const;
 
 // Message types
@@ -30,3 +31,24 @@ export enum MessageType {
 export const PORT_NAMES = {
   KEEP_ALIVE: 'keep-alive',
 } as const;
+
+// Plant emojis for the overlay boxes
+export const PLANT_EMOJIS = [
+  '🌱', // Seedling
+  '🌿', // Herb
+  '☘️', // Shamrock
+  '🍀', // Four leaf clover
+  '🌾', // Sheaf of rice
+  '🌵', // Cactus
+  '🌳', // Deciduous tree
+  '🌲', // Evergreen tree
+  '🌴', // Palm tree
+  '🪴', // Potted plant
+  '🌻', // Sunflower
+  '🌺', // Hibiscus
+  '🌷', // Tulip
+  '🌹', // Rose
+  '🪷', // Lotus
+] as const;
+
+export const SCORE_INTERVAL = 1000

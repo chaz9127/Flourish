@@ -8,6 +8,7 @@ export interface StorageSchema {
   [STORAGE_KEYS.PRODUCTIVE_SITES]: string[];
   [STORAGE_KEYS.UNPRODUCTIVE_SITES]: string[];
   [STORAGE_KEYS.OVERLAY_ENABLED]: boolean;
+  [STORAGE_KEYS.PLANT_EMOJIS]: string[];
 }
 
 // Default storage values
@@ -18,6 +19,7 @@ export const DEFAULT_STORAGE: StorageSchema = {
   [STORAGE_KEYS.PRODUCTIVE_SITES]: [],
   [STORAGE_KEYS.UNPRODUCTIVE_SITES]: [],
   [STORAGE_KEYS.OVERLAY_ENABLED]: true,
+  [STORAGE_KEYS.PLANT_EMOJIS]: [],
 };
 
 // Message payloads

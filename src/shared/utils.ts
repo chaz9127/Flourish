@@ -1,3 +1,11 @@
+import { PLANT_EMOJIS } from './constants';
+
+// Get a random plant emoji from the available options
+export function getRandomPlantEmoji(): string {
+  const randomIndex = Math.floor(Math.random() * PLANT_EMOJIS.length);
+  return PLANT_EMOJIS[randomIndex];
+}
+
 // Extract domain from URL
 export function extractDomain(url: string): string {
   try {
