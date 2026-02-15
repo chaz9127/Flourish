@@ -1,4 +1,4 @@
-import { MessageType, STORAGE_KEYS, PORT_NAMES, SCORE_INTERVAL } from '../shared/constants';
+import { MessageType, STORAGE_KEYS, PORT_NAMES, SCORE_INTERVAL, MAX_SCORE } from '../shared/constants';
 import { getStorage, setStorage, getFullState, initializeStorage } from '../shared/storage';
 import { broadcastMessage } from '../shared/messaging';
 import { extractDomain, normalizeDomain, domainMatches } from '../shared/utils';
@@ -86,7 +86,7 @@ async function handleMessage(message: Message): Promise<any> {
 
     case MessageType.RESET_SCORE:
       await setStorage(STORAGE_KEYS.SCORE, 0);
-      await setStorage(STORAGE_KEYS.PLANT_EMOJIS, []); // Clear plant emojis on manual reset
+      await setStorage(STORAGE_KEYS.PLANTS, []); // Clear plants on manual reset
       await setStorage(STORAGE_KEYS.LAST_UPDATED, Date.now());
       await broadcastScoreUpdate(0);
       break;
@@ -157,10 +157,10 @@ async function updateScore(): Promise<void> {
       return; // Neutral site, no change
     }
 
-    // 4. Update score with clamping (0-100)
+    // 4. Update score with clamping (0-MAX_SCORE)
     const currentScore = await getStorage(STORAGE_KEYS.SCORE);
     const uncappedScore = currentScore + delta;
-    const newScore = Math.max(0, Math.min(100, uncappedScore)); // Clamp between 0 and 100
+    const newScore = Math.max(0, Math.min(MAX_SCORE, uncappedScore)); // Clamp between 0 and MAX_SCORE
 
     await setStorage(STORAGE_KEYS.SCORE, newScore);
     await setStorage(STORAGE_KEYS.LAST_UPDATED, Date.now());
@@ -181,7 +181,7 @@ async function checkAndResetIfNewDay(): Promise<void> {
     console.log(`New day detected. Resetting score. Last reset: ${lastResetDate}, Today: ${today}`);
 
     await setStorage(STORAGE_KEYS.SCORE, 0);
-    await setStorage(STORAGE_KEYS.PLANT_EMOJIS, []); // Clear plant emojis on new day
+    await setStorage(STORAGE_KEYS.PLANTS, []); // Clear plants on new day
     await setStorage(STORAGE_KEYS.LAST_RESET_DATE, today);
     await setStorage(STORAGE_KEYS.LAST_UPDATED, Date.now());
 

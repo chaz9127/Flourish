@@ -6,7 +6,7 @@ export const STORAGE_KEYS = {
   PRODUCTIVE_SITES: 'productiveSites',
   UNPRODUCTIVE_SITES: 'unproductiveSites',
   OVERLAY_ENABLED: 'overlayEnabled',
-  PLANT_EMOJIS: 'plantEmojis',
+  PLANTS: 'plants',
 } as const;
 
 // Message types
@@ -32,23 +32,19 @@ export const PORT_NAMES = {
   KEEP_ALIVE: 'keep-alive',
 } as const;
 
-// Plant emojis for the overlay boxes
-export const PLANT_EMOJIS = [
-  '🌱', // Seedling
-  '🌿', // Herb
-  '☘️', // Shamrock
-  '🍀', // Four leaf clover
-  '🌾', // Sheaf of rice
-  '🌵', // Cactus
-  '🌳', // Deciduous tree
-  '🌲', // Evergreen tree
-  '🌴', // Palm tree
-  '🪴', // Potted plant
-  '🌻', // Sunflower
-  '🌺', // Hibiscus
-  '🌷', // Tulip
-  '🌹', // Rose
-  '🪷', // Lotus
+// Plant types for the image-based leveling system
+export const PLANT_TYPES = [
+  'plum_tree',
+  'lemon_tree',
+  'apple_tree',
+  'coconut_tree',
+  'banana_tree',
 ] as const;
+
+export const MAX_PLANT_LEVEL = 5;
+export const MAX_PLANT_COUNT = 15;
+export const POINTS_PER_PLANT_CHANGE = 10;
+export const CHANCE_PLANT_LEVELS_UP = 0.7
+export const MAX_SCORE = 1000
 
 export const SCORE_INTERVAL = 1000

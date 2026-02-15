@@ -1,5 +1,15 @@
 import { MessageType, STORAGE_KEYS } from './constants';
 
+// Plant types
+export type PlantType = 'plum_tree' | 'lemon_tree' | 'apple_tree' | 'coconut_tree' | 'banana_tree';
+export type PlantLevel = 1 | 2 | 3 | 4 | 5;
+
+export interface Plant {
+  id: string;          // Timestamp-based unique ID for tracking order
+  type: PlantType;
+  level: PlantLevel;
+}
+
 // Storage schema
 export interface StorageSchema {
   [STORAGE_KEYS.SCORE]: number;
@@ -8,7 +18,7 @@ export interface StorageSchema {
   [STORAGE_KEYS.PRODUCTIVE_SITES]: string[];
   [STORAGE_KEYS.UNPRODUCTIVE_SITES]: string[];
   [STORAGE_KEYS.OVERLAY_ENABLED]: boolean;
-  [STORAGE_KEYS.PLANT_EMOJIS]: string[];
+  [STORAGE_KEYS.PLANTS]: Plant[];
 }
 
 // Default storage values
@@ -19,7 +29,7 @@ export const DEFAULT_STORAGE: StorageSchema = {
   [STORAGE_KEYS.PRODUCTIVE_SITES]: [],
   [STORAGE_KEYS.UNPRODUCTIVE_SITES]: [],
   [STORAGE_KEYS.OVERLAY_ENABLED]: true,
-  [STORAGE_KEYS.PLANT_EMOJIS]: [],
+  [STORAGE_KEYS.PLANTS]: [],
 };
 
 // Message payloads

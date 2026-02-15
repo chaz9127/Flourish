@@ -1,9 +1,61 @@
-import { PLANT_EMOJIS } from './constants';
+import { PLANT_TYPES, MAX_PLANT_LEVEL, MAX_PLANT_COUNT } from './constants';
+import type { Plant, PlantType, PlantLevel } from './types';
 
-// Get a random plant emoji from the available options
-export function getRandomPlantEmoji(): string {
-  const randomIndex = Math.floor(Math.random() * PLANT_EMOJIS.length);
-  return PLANT_EMOJIS[randomIndex];
+// Generate unique ID for plant
+export function generatePlantId(): string {
+  return `plant_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+// Get random plant type
+export function getRandomPlantType(): PlantType {
+  const randomIndex = Math.floor(Math.random() * PLANT_TYPES.length);
+  return PLANT_TYPES[randomIndex] as PlantType;
+}
+
+// Create new plant at level 1
+export function createNewPlant(): Plant {
+  return {
+    id: generatePlantId(),
+    type: getRandomPlantType(),
+    level: 1,
+  };
+}
+
+// Check if any plants can be leveled up
+export function canLevelUpAny(plants: Plant[]): boolean {
+  return plants.some(plant => plant.level < MAX_PLANT_LEVEL);
+}
+
+// Check if new plants can be added
+export function canAddNewPlant(plants: Plant[]): boolean {
+  return plants.length < MAX_PLANT_COUNT;
+}
+
+// Get plants that aren't at max level
+export function getLevelablePlants(plants: Plant[]): Plant[] {
+  return plants.filter(plant => plant.level < MAX_PLANT_LEVEL);
+}
+
+// Level up a specific plant by ID
+export function levelUpPlant(plants: Plant[], plantId: string): Plant[] {
+  return plants.map(plant => {
+    if (plant.id === plantId && plant.level < MAX_PLANT_LEVEL) {
+      return { ...plant, level: (plant.level + 1) as PlantLevel };
+    }
+    return plant;
+  });
+}
+
+// Get random plant from list
+export function getRandomPlant(plants: Plant[]): Plant | null {
+  if (plants.length === 0) return null;
+  const randomIndex = Math.floor(Math.random() * plants.length);
+  return plants[randomIndex];
+}
+
+// Build image URL for plant
+export function getPlantImageUrl(plant: Plant): string {
+  return chrome.runtime.getURL(`plants/${plant.type}_${plant.level}.png`);
 }
 
 // Extract domain from URL
