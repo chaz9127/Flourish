@@ -166,41 +166,19 @@ const Overlay: React.FC = () => {
   }));
 
   return (
-    <>
+    <div className='flourish-overlay-container'>
       {boxes.map((box) => (
         <div
           key={box.id}
           className="flourish-overlay-box"
           style={{
-            position: 'fixed',
-            bottom: '20px',
             right: `${box.rightOffset}px`,
             zIndex: box.zIndex,
-            backgroundColor: 'none',
-            color: 'white',
-            padding: '2px',
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            userSelect: 'none',
-            cursor: 'default',
-            transition: 'all 0.3s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '52px',
-            height: '66px',
-            overflow: 'hidden',
           }}
         >
           <img
             src={box.imageUrl}
             alt={`${box.plant.type} level ${box.plant.level}`}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              borderRadius: '4px',
-            }}
             onError={(e) => {
               // Fallback if image fails
               const target = e.target as HTMLImageElement;
@@ -213,7 +191,7 @@ const Overlay: React.FC = () => {
           />
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

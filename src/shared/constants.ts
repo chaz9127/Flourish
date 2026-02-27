@@ -47,4 +47,4 @@ export const POINTS_PER_PLANT_CHANGE = 10;
 export const CHANCE_PLANT_LEVELS_UP = 0.7
 export const MAX_SCORE = 1000
 
-export const SCORE_INTERVAL = 1000
+export const SCORE_INTERVAL = 100
