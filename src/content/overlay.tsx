@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MessageType, STORAGE_KEYS, POINTS_PER_PLANT_CHANGE, CHANCE_PLANT_LEVELS_UP } from '../shared/constants';
 import { getStorage, setStorage } from '../shared/storage';
 import {
@@ -17,6 +17,8 @@ const Overlay: React.FC = () => {
   const [score, setScore] = useState<number>(0);
   const [plants, setPlants] = useState<Plant[]>([]);
   const [visible, setVisible] = useState<boolean>(true);
+  const plantsRef = useRef<Plant[]>(plants);
+  plantsRef.current = plants;
 
   useEffect(() => {
     // Load initial state
@@ -117,40 +119,35 @@ const Overlay: React.FC = () => {
   // Sync plants when score changes
   useEffect(() => {
     const syncPlants = async () => {
-      // Calculate changes: every 10 points = 1 change
+      const currentPlants = plantsRef.current;
       const targetChangeCount = Math.floor(score / POINTS_PER_PLANT_CHANGE);
-
-      // Current changes = sum of all plant levels
-      const currentChangeCount = plants.reduce((sum, plant) => sum + plant.level, 0);
+      const currentChangeCount = currentPlants.reduce((sum, plant) => sum + plant.level, 0);
 
       if (targetChangeCount > currentChangeCount) {
-        // Need to add changes
-        let updatedPlants = [...plants];
+        let updatedPlants = [...currentPlants];
         const changesToMake = targetChangeCount - currentChangeCount;
-
         for (let i = 0; i < changesToMake; i++) {
           updatedPlants = makeRandomPlantChange(updatedPlants);
         }
-
-        setPlants(updatedPlants);
-        await setStorage(STORAGE_KEYS.PLANTS, updatedPlants);
-
+        // Guard: only write state if something actually changed
+        const newChangeCount = updatedPlants.reduce((sum, plant) => sum + plant.level, 0);
+        if (newChangeCount !== currentChangeCount) {
+          setPlants(updatedPlants);
+          await setStorage(STORAGE_KEYS.PLANTS, updatedPlants);
+        }
       } else if (targetChangeCount < currentChangeCount) {
-        // Need to remove changes
-        let updatedPlants = [...plants];
+        let updatedPlants = [...currentPlants];
         const changesToRemove = currentChangeCount - targetChangeCount;
-
         for (let i = 0; i < changesToRemove; i++) {
           updatedPlants = removeLastChange(updatedPlants);
         }
-
         setPlants(updatedPlants);
         await setStorage(STORAGE_KEYS.PLANTS, updatedPlants);
       }
     };
 
     syncPlants();
-  }, [score, plants]);
+  }, [score]); // Only re-run when score changes, not when plants change
 
   if (!visible) {
     return null;
