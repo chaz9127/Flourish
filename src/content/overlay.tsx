@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { MessageType, STORAGE_KEYS, POINTS_PER_PLANT_CHANGE, CHANCE_PLANT_LEVELS_UP } from '../shared/constants';
+import { MessageType, STORAGE_KEYS, POINTS_PER_PLANT_CHANGE, CHANCE_PLANT_LEVELS_UP, MAX_PLANT_COUNT } from '../shared/constants';
 import { getStorage, setStorage } from '../shared/storage';
 import {
   createNewPlant,
@@ -154,18 +154,22 @@ const Overlay: React.FC = () => {
   }
 
   // Each plant = one box; row derived from id so it's stable across re-renders
+  const maxPerRow = MAX_PLANT_COUNT / 2;
   const rowCounters = { top: 0, bottom: 0 };
   const boxes = plants.map((plant) => {
     const idSum = plant.id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-    const isTopRow = idSum % 2 === 0;
-    const rowIndex = isTopRow ? rowCounters.top++ : rowCounters.bottom++;
+    const prefersTop = idSum % 2 === 0;
+    const topFull = rowCounters.top >= maxPerRow;
+    const bottomFull = rowCounters.bottom >= maxPerRow;
+    const assignTop = prefersTop ? !topFull : bottomFull;
+    const rowIndex = assignTop ? rowCounters.top++ : rowCounters.bottom++;
     return {
       id: plant.id,
       plant: plant,
       imageUrl: getPlantImageUrl(plant),
-      rightOffset: 5 + (rowIndex * 40) + (isTopRow ? 10 : 0),
-      bottomOffset: isTopRow ? 25 : 0,
-      zIndex: isTopRow ? 2147483640 - rowIndex : 2147483647 - rowIndex,
+      rightOffset: 5 + (rowIndex * 40) + (assignTop ? 10 : 0),
+      bottomOffset: assignTop ? 25 : 0,
+      zIndex: assignTop ? 2147483640 - rowIndex : 2147483647 - rowIndex,
     };
   });
 

@@ -20,8 +20,6 @@ const WebsiteManager: React.FC<WebsiteManagerProps> = ({
 }) => {
   return (
     <div className="website-manager">
-      <h2>Website Categories</h2>
-
       <WebsiteListEditor
         title="Productive Sites"
         sites={productiveSites}
@@ -37,7 +35,7 @@ const WebsiteManager: React.FC<WebsiteManagerProps> = ({
         onAdd={onAddUnproductiveSite}
         onRemove={onRemoveUnproductiveSite}
         color="red"
-        placeholder="e.g., facebook.com"
+        placeholder="e.g., tiktok.com"
       />
     </div>
   );

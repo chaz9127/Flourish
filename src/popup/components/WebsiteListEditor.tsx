@@ -69,7 +69,7 @@ const WebsiteListEditor: React.FC<WebsiteListEditorProps> = ({
           className="website-input"
         />
         <button onClick={handleAdd} className="add-button">
-          Add
+          +
         </button>
       </div>
 
@@ -83,7 +83,7 @@ const WebsiteListEditor: React.FC<WebsiteListEditorProps> = ({
             <li key={site} className="website-item">
               <span className="website-domain">{site}</span>
               <button onClick={() => onRemove(site)} className="remove-button">
-                Remove
+                −
               </button>
             </li>
           ))

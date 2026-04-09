@@ -1,15 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
-// import ScoreDisplay from './components/ScoreDisplay';
+import ScoreDisplay from './components/ScoreDisplay';
 import WebsiteManager from './components/WebsiteManager';
 import OverlayToggle from './components/OverlayToggle';
 import { sendMessage } from '../shared/messaging';
-import { MessageType, STORAGE_KEYS } from '../shared/constants';
+import { MessageType, STORAGE_KEYS, IS_DEV } from '../shared/constants';
 import type { GetStateResponse } from '../shared/types';
 
 const LEVEL_5_PLANTS = ['apple_tree', 'banana_tree', 'coconut_tree', 'lemon_tree', 'plum_tree'];
 
 const Popup: React.FC = () => {
-  // const [score, setScore] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
   const randomPlant = useMemo(() => LEVEL_5_PLANTS[Math.floor(Math.random() * LEVEL_5_PLANTS.length)], []);
   const [productiveSites, setProductiveSites] = useState<string[]>([]);
   const [unproductiveSites, setUnproductiveSites] = useState<string[]>([]);
@@ -21,7 +21,7 @@ const Popup: React.FC = () => {
     const loadState = async () => {
       try {
         const state: GetStateResponse = await sendMessage(MessageType.GET_STATE);
-        // setScore(state[STORAGE_KEYS.SCORE]);
+        setScore(state[STORAGE_KEYS.SCORE]);
         setProductiveSites(state[STORAGE_KEYS.PRODUCTIVE_SITES]);
         setUnproductiveSites(state[STORAGE_KEYS.UNPRODUCTIVE_SITES]);
         setOverlayEnabled(state[STORAGE_KEYS.OVERLAY_ENABLED]);
@@ -40,9 +40,9 @@ const Popup: React.FC = () => {
       areaName: string
     ) => {
       if (areaName === 'local') {
-        // if (changes[STORAGE_KEYS.SCORE]) {
-        //   setScore(changes[STORAGE_KEYS.SCORE].newValue);
-        // }
+        if (changes[STORAGE_KEYS.SCORE]) {
+          setScore(changes[STORAGE_KEYS.SCORE].newValue);
+        }
         if (changes[STORAGE_KEYS.PRODUCTIVE_SITES]) {
           setProductiveSites(changes[STORAGE_KEYS.PRODUCTIVE_SITES].newValue);
         }
@@ -82,9 +82,9 @@ const Popup: React.FC = () => {
     await sendMessage(MessageType.TOGGLE_OVERLAY, { enabled });
   };
 
-  // const handleResetScore = async () => {
-  //   await sendMessage(MessageType.RESET_SCORE);
-  // };
+  const handleResetScore = async () => {
+    await sendMessage(MessageType.RESET_SCORE);
+  };
 
   if (loading) {
     return (
@@ -102,30 +102,33 @@ const Popup: React.FC = () => {
 
       </header>
 
-      {/* <ScoreDisplay score={score} /> */}
+      {IS_DEV && (
+        <>
+          <ScoreDisplay score={score} />
 
-
-      {/* <div style={{ padding: '16px', borderBottom: '1px solid #e5e7eb' }}>
-        <button
-          onClick={handleResetScore}
-          style={{
-            width: '100%',
-            padding: '10px',
-            backgroundColor: '#ef4444',
-            color: 'white',
-            border: 'none',
-            borderRadius: '6px',
-            fontSize: '14px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            transition: 'background-color 0.2s',
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#dc2626')}
-          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#ef4444')}
-        >
-          Reset Score
-        </button>
-      </div> */}
+          <div style={{ padding: '16px', borderBottom: '1px solid #e5e7eb' }}>
+            <button
+              onClick={handleResetScore}
+              style={{
+                width: '100%',
+                padding: '10px',
+                backgroundColor: '#ef4444',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'background-color 0.2s',
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#dc2626')}
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#ef4444')}
+            >
+              Reset Score
+            </button>
+          </div>
+        </>
+      )}
 
       <WebsiteManager
         productiveSites={productiveSites}

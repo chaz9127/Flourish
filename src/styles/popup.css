@@ -73,8 +73,8 @@ body {
 
 /* Overlay Toggle */
 .overlay-toggle {
-  background-color: #8bc34a;
-  border-radius: 8px;
+  background-color: #f0fada;
+  border: 2px solid #3a6b35;
   padding: 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -85,9 +85,10 @@ body {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 500;
   color: #3a6b35;
+  font-family: 'Press Start 2P', system-ui, sans-serif;
 }
 
 .toggle-checkbox {
@@ -96,9 +97,10 @@ body {
 
 .toggle-slider {
   position: relative;
-  width: 44px;
+  width: 50px;
   height: 24px;
   background-color: #d1d5db;
+  border: 2px solid #3a6b35;
   border-radius: 0;
   transition: background-color 0.2s;
 }
@@ -106,8 +108,8 @@ body {
 .toggle-slider::after {
   content: '';
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 0;
+  left: 0;
   width: 20px;
   height: 20px;
   background-color: #3a6b35;
@@ -120,23 +122,26 @@ body {
 }
 
 .toggle-checkbox:checked + .toggle-slider::after {
-  transform: translateX(20px);
+  transform: translateX(26px);
 }
 
 /* Website Manager */
 .website-manager {
-  background-color: white;
-  border-radius: 8px;
+  background-color: #f0fada;
+  border: 2px solid #3a6b35;
+  border-radius: 0;
   padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  image-rendering: pixelated;
 }
 
 .website-manager h2 {
-  font-size: 18px;
-  font-weight: 600;
+  font-family: 'Press Start 2P', system-ui, sans-serif;
+  font-size: 10px;
   margin-bottom: 16px;
-  color: #111827;
+  color: #3a6b35;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Website List Editor */
@@ -149,19 +154,19 @@ body {
 }
 
 .website-list-editor h3 {
-  font-size: 14px;
-  font-weight: 600;
+  font-family: 'Press Start 2P', system-ui, sans-serif;
+  font-size: 8px;
   margin-bottom: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 .website-list-editor.green h3 {
-  color: #10b981;
+  color: #3a6b35;
 }
 
 .website-list-editor.red h3 {
-  color: #ef4444;
+  color: #c0392b;
 }
 
 .input-group {
@@ -172,37 +177,40 @@ body {
 
 .website-input {
   flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 8px 10px;
+  border: 2px solid #3a6b35;
+  border-radius: 0;
+  font-size: 12px;
+  background-color: #fff;
   outline: none;
   transition: border-color 0.2s;
 }
 
 .website-input:focus {
-  border-color: #3b82f6;
+  border-color: #8bc34a;
+  background-color: #f0fada;
 }
 
 .add-button {
-  padding: 8px 16px;
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  padding: 8px 12px;
+  background-color: #3a6b35;
+  color: #d8f3a6;
+  border: 2px solid #3a6b35;
+  border-radius: 0;
+  font-family: 'Press Start 2P', system-ui, sans-serif;
+  font-size: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .add-button:hover {
-  background-color: #2563eb;
+  background-color: #d8f3a6;
+  color: #3a6b35;
 }
 
 .error-message {
-  color: #ef4444;
-  font-size: 12px;
+  color: #c0392b;
+  font-size: 10px;
   margin-bottom: 8px;
 }
 
@@ -216,11 +224,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  margin-bottom: 6px;
-  background-color: #f9fafb;
+  padding: 6px 10px;
+  border: 1px solid #8bc34a;
+  border-radius: 0;
+  margin-bottom: 4px;
+  background-color: #fff;
 }
 
 .website-item:last-child {
@@ -228,33 +236,33 @@ body {
 }
 
 .website-domain {
-  font-size: 14px;
-  color: #374151;
+  font-size: 12px;
+  color: #3a6b35;
   word-break: break-all;
 }
 
 .remove-button {
-  padding: 4px 12px;
-  background-color: #ef4444;
+  padding: 4px 8px;
+  background-color: #c0392b;
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
+  border-radius: 0;
+  font-family: 'Press Start 2P', system-ui, sans-serif;
+  font-size: 7px;
   cursor: pointer;
   transition: background-color 0.2s;
   flex-shrink: 0;
 }
 
 .remove-button:hover {
-  background-color: #dc2626;
+  background-color: #922b21;
 }
 
 .empty-message {
   text-align: center;
   padding: 16px;
-  color: #9ca3af;
-  font-size: 14px;
+  color: #8bc34a;
+  font-size: 11px;
   font-style: italic;
 }
 

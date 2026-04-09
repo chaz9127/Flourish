@@ -1,3 +1,5 @@
+export const IS_DEV = false
+
 // Storage keys
 export const STORAGE_KEYS = {
   SCORE: 'score',
@@ -42,7 +44,7 @@ export const PLANT_TYPES = [
 ] as const;
 
 export const MAX_PLANT_LEVEL = 5;
-export const MAX_PLANT_COUNT = 15;
+export const MAX_PLANT_COUNT = 20;
 export const POINTS_PER_PLANT_CHANGE = 10;
 export const CHANCE_PLANT_LEVELS_UP = 0.7
 export const MAX_SCORE = 1000
