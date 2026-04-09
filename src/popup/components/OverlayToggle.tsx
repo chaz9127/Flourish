@@ -9,7 +9,7 @@ const OverlayToggle: React.FC<OverlayToggleProps> = ({ enabled, onToggle }) => {
   return (
     <div className="overlay-toggle">
       <label className="toggle-label">
-        <span>Show Floating Overlay</span>
+        <span>Show Forest</span>
         <input
           type="checkbox"
           checked={enabled}

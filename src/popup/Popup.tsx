@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import ScoreDisplay from './components/ScoreDisplay';
+import React, { useEffect, useMemo, useState } from 'react';
+// import ScoreDisplay from './components/ScoreDisplay';
 import WebsiteManager from './components/WebsiteManager';
 import OverlayToggle from './components/OverlayToggle';
 import { sendMessage } from '../shared/messaging';
 import { MessageType, STORAGE_KEYS } from '../shared/constants';
 import type { GetStateResponse } from '../shared/types';
 
+const LEVEL_5_PLANTS = ['apple_tree', 'banana_tree', 'coconut_tree', 'lemon_tree', 'plum_tree'];
+
 const Popup: React.FC = () => {
-  const [score, setScore] = useState<number>(0);
+  // const [score, setScore] = useState<number>(0);
+  const randomPlant = useMemo(() => LEVEL_5_PLANTS[Math.floor(Math.random() * LEVEL_5_PLANTS.length)], []);
   const [productiveSites, setProductiveSites] = useState<string[]>([]);
   const [unproductiveSites, setUnproductiveSites] = useState<string[]>([]);
   const [overlayEnabled, setOverlayEnabled] = useState<boolean>(true);
@@ -18,7 +21,7 @@ const Popup: React.FC = () => {
     const loadState = async () => {
       try {
         const state: GetStateResponse = await sendMessage(MessageType.GET_STATE);
-        setScore(state[STORAGE_KEYS.SCORE]);
+        // setScore(state[STORAGE_KEYS.SCORE]);
         setProductiveSites(state[STORAGE_KEYS.PRODUCTIVE_SITES]);
         setUnproductiveSites(state[STORAGE_KEYS.UNPRODUCTIVE_SITES]);
         setOverlayEnabled(state[STORAGE_KEYS.OVERLAY_ENABLED]);
@@ -37,9 +40,9 @@ const Popup: React.FC = () => {
       areaName: string
     ) => {
       if (areaName === 'local') {
-        if (changes[STORAGE_KEYS.SCORE]) {
-          setScore(changes[STORAGE_KEYS.SCORE].newValue);
-        }
+        // if (changes[STORAGE_KEYS.SCORE]) {
+        //   setScore(changes[STORAGE_KEYS.SCORE].newValue);
+        // }
         if (changes[STORAGE_KEYS.PRODUCTIVE_SITES]) {
           setProductiveSites(changes[STORAGE_KEYS.PRODUCTIVE_SITES].newValue);
         }
@@ -79,9 +82,9 @@ const Popup: React.FC = () => {
     await sendMessage(MessageType.TOGGLE_OVERLAY, { enabled });
   };
 
-  const handleResetScore = async () => {
-    await sendMessage(MessageType.RESET_SCORE);
-  };
+  // const handleResetScore = async () => {
+  //   await sendMessage(MessageType.RESET_SCORE);
+  // };
 
   if (loading) {
     return (
@@ -95,14 +98,14 @@ const Popup: React.FC = () => {
     <div className="popup-container">
       <header className="popup-header">
         <h1>Flourish</h1>
-        <p className="popup-subtitle">Productivity Tracker</p>
+        <img src={`/plants/${randomPlant}_5.png`} alt={randomPlant.replace('_', ' ')} style={{ height: 36 }} />
+
       </header>
 
-      <ScoreDisplay score={score} />
+      {/* <ScoreDisplay score={score} /> */}
 
-      <OverlayToggle enabled={overlayEnabled} onToggle={handleToggleOverlay} />
 
-      <div style={{ padding: '16px', borderBottom: '1px solid #e5e7eb' }}>
+      {/* <div style={{ padding: '16px', borderBottom: '1px solid #e5e7eb' }}>
         <button
           onClick={handleResetScore}
           style={{
@@ -122,7 +125,7 @@ const Popup: React.FC = () => {
         >
           Reset Score
         </button>
-      </div>
+      </div> */}
 
       <WebsiteManager
         productiveSites={productiveSites}
@@ -132,9 +135,10 @@ const Popup: React.FC = () => {
         onAddUnproductiveSite={handleAddUnproductiveSite}
         onRemoveUnproductiveSite={handleRemoveUnproductiveSite}
       />
+      <OverlayToggle enabled={overlayEnabled} onToggle={handleToggleOverlay} />
 
       <footer className="popup-footer">
-        <p>Score resets daily at midnight</p>
+        <p>Forest resets daily at midnight</p>
       </footer>
     </div>
   );
