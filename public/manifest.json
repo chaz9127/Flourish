@@ -38,7 +38,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["plants/*.png", "grass_floor.png"],
+      "resources": ["plants/*.png"],
       "matches": ["<all_urls>"]
     }
   ]
