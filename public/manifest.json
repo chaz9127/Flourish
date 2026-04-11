@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Flourish - Productivity Tracker",
-  "version": "1.0.0",
-  "description": "Track your productivity while browsing with real-time scoring",
+  "name": "Flourish",
+  "version": "1.0.1",
+  "description": "Stay productive and grow your forest.",
   "permissions": [
     "storage",
     "tabs",

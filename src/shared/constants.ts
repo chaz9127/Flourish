@@ -45,8 +45,8 @@ export const PLANT_TYPES = [
 
 export const MAX_PLANT_LEVEL = 5;
 export const MAX_PLANT_COUNT = 20;
-export const POINTS_PER_PLANT_CHANGE = 10;
+export const POINTS_PER_PLANT_CHANGE = 300;
 export const CHANCE_PLANT_LEVELS_UP = 0.7
-export const MAX_SCORE = 1000
+export const MAX_SCORE = 10000
 
-export const SCORE_INTERVAL = 100
+export const SCORE_INTERVAL = 1000
